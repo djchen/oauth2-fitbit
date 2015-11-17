@@ -4,11 +4,6 @@ This package provides Fitbit OAuth 2.0 support for the PHP League's [OAuth 2.0 C
 
 This package is compliant with [PSR-1][], [PSR-2][], [PSR-4][], and [PSR-7][]. If you notice compliance oversights, please send a patch via pull request.
 
-[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
-[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
-[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
-
-
 ## Requirements
 
 The following versions of PHP are supported.
@@ -138,3 +133,8 @@ Please see [CONTRIBUTING](https://github.com/djchen/oauth2-fitbit/blob/master/CO
 ## License
 
 The MIT License (MIT). Please see [License File](https://github.com/djchen/oauth2-fitbit/blob/master/LICENSE) for more information.
+
+[PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
+[PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
+[PSR-7]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md
