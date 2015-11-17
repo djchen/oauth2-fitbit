@@ -59,22 +59,14 @@ class Fitbit extends AbstractProvider
     }
 
     /**
-     * Returns the default scopes used by Fitbit.
-     *
-     * Fitbit OAuth 2.0 Beta Note:
-     * Currently, activity, nutrition, profile, settings, sleep, social, and weight are
-     * required scopes and are equivalent to OAuth 1.0a access.
-     *
-     * If you do not specify these scopes, they will be appended to the list
-     * your application specifies. Fitbit is still updating all existing endpoints to
-     * support the relevant scopes. A scope will be removed from the required list when
-     * all related endpoints are updated. All scopes will be optional in the future.
+     * Returns all scopes available from Fitbit.
+     * It is recommended you only request the scopes you need!
      *
      * @return array
      */
     protected function getDefaultScopes()
     {
-        return ['activity', 'settings', 'nutrition', 'social', 'profile', 'sleep', 'weight'];
+        return ['activity', 'heartrate', 'location', 'profile', 'settings', 'sleep', 'social', 'weight'];
     }
 
     /**

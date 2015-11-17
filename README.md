@@ -32,7 +32,6 @@ composer require djchen/oauth2-fitbit
 ### Authorization Code Grant
 
 ```php
-
 $provider = new djchen\OAuth2\Client\Provider\Fitbit([
     'clientId'          => '{fitbit-oauth2-client-id}',
     'clientSecret'      => '{fitbit-client-secret}',
@@ -92,6 +91,8 @@ if (!isset($_GET['code'])) {
             'https://api.fitbit.com/1/user/-/profile.json',
             $accessToken
         );
+        // Make the authenticated API request and get the response.
+        //$response = $provider->getResponse($request);
 
     } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
 
@@ -101,7 +102,6 @@ if (!isset($_GET['code'])) {
     }
 
 }
-
 ```
 
 ### Refreshing a Token

@@ -14,7 +14,7 @@ class FitbitUser implements ResourceOwnerInterface
     /**
      * @var string
      */
-     protected $displayName;
+    protected $displayName;
 
     /**
      * @param  array $response
