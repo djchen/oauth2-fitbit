@@ -17,7 +17,7 @@ class FitbitUser implements ResourceOwnerInterface
     protected $displayName;
 
     /**
-     * @param  array $response
+     * @param array $response
      */
     public function __construct(array $response)
     {
@@ -49,8 +49,8 @@ class FitbitUser implements ResourceOwnerInterface
     public function toArray()
     {
         return [
-            'encodedId'        => $this->encodedId,
-            'displayName'      => $this->displayName
+            'encodedId' => $this->encodedId,
+            'displayName' => $this->displayName,
         ];
     }
 }

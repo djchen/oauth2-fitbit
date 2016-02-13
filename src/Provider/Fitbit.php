@@ -27,35 +27,37 @@ class Fitbit extends AbstractProvider
     const BASE_FITBIT_API_URL = 'https://api.fitbit.com';
 
     /**
-     * Get authorization url to begin OAuth flow
+     * Get authorization url to begin OAuth flow.
      *
      * @return string
      */
     public function getBaseAuthorizationUrl()
     {
-        return static::BASE_FITBIT_URL . '/oauth2/authorize';
+        return static::BASE_FITBIT_URL.'/oauth2/authorize';
     }
 
     /**
-     * Get access token url to retrieve token
+     * Get access token url to retrieve token.
      *
      * @param array $params
+     *
      * @return string
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return static::BASE_FITBIT_API_URL . '/oauth2/token';
+        return static::BASE_FITBIT_API_URL.'/oauth2/token';
     }
 
     /**
      * Returns the url to retrieve the resource owners's profile/details.
      *
      * @param AccessToken $token
+     *
      * @return string
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return static::BASE_FITBIT_API_URL . '/1/user/-/profile.json';
+        return static::BASE_FITBIT_API_URL.'/1/user/-/profile.json';
     }
 
     /**
@@ -73,15 +75,29 @@ class Fitbit extends AbstractProvider
      * Checks Fitbit API response for errors.
      *
      * @throws IdentityProviderException
-     * @param  ResponseInterface $response
-     * @param  array|string $data Parsed response data
-     * @return void
+     *
+     * @param ResponseInterface $response
+     * @param array|string      $data     Parsed response data
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
-        if (!empty($data['errors'][0])) {
-            $message = $data['errors'][0]['errorType'] . ': ' . $data['errors'][0]['message'];
-            throw new IdentityProviderException($message, $response->getStatusCode(), $data);
+        if ($response->getStatusCode() >= 400) {
+            $errorMessage = '';
+            if (!empty($data['errors'])) {
+                foreach ($data['errors'] as $error) {
+                    if (!empty($errorMessage)) {
+                        $errorMessage .= ' , ';
+                    }
+                    $errorMessage .= implode(' - ', $error);
+                }
+            } else {
+                $errorMessage = $response->getReasonPhrase();
+            }
+            throw new IdentityProviderException(
+                $errorMessage,
+                $response->getStatusCode(),
+                $response
+            );
         }
     }
 
@@ -100,6 +116,7 @@ class Fitbit extends AbstractProvider
      * Fitbit does not use the 'approval_prompt' param and here we remove it.
      *
      * @param array $options
+     *
      * @return array Authorization parameters
      */
     protected function getAuthorizationParameters(array $options)
@@ -109,20 +126,23 @@ class Fitbit extends AbstractProvider
         if (!empty($options['prompt'])) {
             $params['prompt'] = $options['prompt'];
         }
+
         return $params;
     }
 
     /**
      * Builds request options used for requesting an access token.
      *
-     * @param  array $params
+     * @param array $params
+     *
      * @return array
      */
     protected function getAccessTokenOptions(array $params)
     {
         $options = parent::getAccessTokenOptions($params);
         $options['headers']['Authorization'] =
-            'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret);
+            'Basic '.base64_encode($this->clientId.':'.$this->clientSecret);
+
         return $options;
     }
 
@@ -130,8 +150,9 @@ class Fitbit extends AbstractProvider
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
-     * @param  array $response
-     * @param  AccessToken $token
+     * @param array       $response
+     * @param AccessToken $token
+     *
      * @return FitbitUser
      */
     public function createResourceOwner(array $response, AccessToken $token)
