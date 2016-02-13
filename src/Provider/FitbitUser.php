@@ -7,28 +7,21 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 class FitbitUser implements ResourceOwnerInterface
 {
     /**
-     * @var string
+     * @var array
      */
-    protected $encodedId;
-
-    /**
-     * @var string
-     */
-    protected $displayName;
+    protected $userInfo = [];
 
     /**
      * @param array $response
      */
     public function __construct(array $response)
     {
-        $userInfo = $response['user'];
-        $this->encodedId = $userInfo['encodedId'];
-        $this->displayName = $userInfo['displayName'];
+        $this->userInfo = $response['user'];
     }
 
     public function getId()
     {
-        return $this->encodedId;
+        return $this->userInfo['encodedId'];
     }
 
     /**
@@ -38,7 +31,7 @@ class FitbitUser implements ResourceOwnerInterface
      */
     public function getDisplayName()
     {
-        return $this->displayName;
+        return $this->userInfo['displayName'];
     }
 
     /**
@@ -48,9 +41,6 @@ class FitbitUser implements ResourceOwnerInterface
      */
     public function toArray()
     {
-        return [
-            'encodedId' => $this->encodedId,
-            'displayName' => $this->displayName,
-        ];
+        return $this->userInfo;
     }
 }
