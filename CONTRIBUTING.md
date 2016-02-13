@@ -39,4 +39,10 @@ $ ./vendor/bin/phpunit
 $ ./vendor/bin/phpcs src --standard=psr2 -sp
 ```
 
+## Running PHP Coding Standards Fixer (optional)
+
+``` bash
+php php-cs-fixer.phar fix src/
+```
+
 **Happy coding**!
