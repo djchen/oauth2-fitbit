@@ -26,7 +26,9 @@ composer require djchen/oauth2-fitbit
 ### Authorization Code Grant
 
 ```php
-$provider = new djchen\OAuth2\Client\Provider\Fitbit([
+use djchen\OAuth2\Client\Provider\Fitbit;
+
+$provider = new Fitbit([
     'clientId'          => '{fitbit-oauth2-client-id}',
     'clientSecret'      => '{fitbit-client-secret}',
     'redirectUri'       => 'https://example.com/callback-url'
@@ -82,7 +84,7 @@ if (!isset($_GET['code'])) {
         // to Psr\Http\Message\RequestInterface.
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            'https://api.fitbit.com/1/user/-/profile.json',
+            Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
             $accessToken
         );
         // Make the authenticated API request and get the response.
