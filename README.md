@@ -89,6 +89,7 @@ if (!isset($_GET['code'])) {
             ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
             // Fitbit uses the Accept-Language for setting the unit system used
             // and setting Accept-Locale will return a translated response if available.
+            // https://dev.fitbit.com/docs/basics/#localization
         );
         // Make the authenticated API request and get the response.
         //$response = $provider->getResponse($request);
