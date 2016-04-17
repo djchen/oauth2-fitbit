@@ -85,7 +85,10 @@ if (!isset($_GET['code'])) {
         $request = $provider->getAuthenticatedRequest(
             'GET',
             Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
-            $accessToken
+            $accessToken,
+            ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
+            // Fitbit uses the Accept-Language for setting the unit system used
+            // and setting Accept-Locale will return a translated response if available.
         );
         // Make the authenticated API request and get the response.
         //$response = $provider->getResponse($request);
