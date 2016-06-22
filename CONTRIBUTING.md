@@ -34,7 +34,7 @@ The following tests must pass for a build to be considered successful. If contri
 $ ./vendor/bin/php-cs-fixer fix src
 $ ./vendor/bin/phpcs src --standard=psr2 -sp
 $ ./vendor/bin/parallel-lint src test
-$ ./vendor/bin/phpunit --coverage-text
+$ ./vendor/bin/phpunit --coverage-text test
 ```
 
 **Happy coding**!
