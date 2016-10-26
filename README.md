@@ -4,6 +4,8 @@ This package provides Fitbit OAuth 2.0 support for the PHP League's [OAuth 2.0 C
 
 This package is compliant with [PSR-1][], [PSR-2][], [PSR-4][], and [PSR-7][]. If you notice compliance oversights, please send a patch via pull request.
 
+Developers can register applications to use the Fitbit API at <https://dev.fitbit.com/apps>.
+
 ## Requirements
 
 The following versions of PHP are supported.
@@ -83,7 +85,7 @@ if (!isset($_GET['code'])) {
         // the service, using the access token; it returns an object conforming
         // to Psr\Http\Message\RequestInterface.
         $request = $provider->getAuthenticatedRequest(
-            'GET',
+            Fitbit::METHOD_GET,
             Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
             $accessToken,
             ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
