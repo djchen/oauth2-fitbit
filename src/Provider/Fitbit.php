@@ -27,6 +27,20 @@ class Fitbit extends AbstractProvider
     const BASE_FITBIT_API_URL = 'https://api.fitbit.com';
 
     /**
+     * HTTP header Accept-Language.
+     *
+     * @const string
+     */
+    const HEADER_ACCEPT_LANG = 'Accept-Language';
+
+    /**
+     * HTTP header Accept-Locale.
+     *
+     * @const string
+     */
+    const HEADER_ACCEPT_LOCALE = 'Accept-Locale';
+
+    /**
      * Get authorization url to begin OAuth flow.
      *
      * @return string
