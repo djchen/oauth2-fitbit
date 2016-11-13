@@ -173,4 +173,13 @@ class Fitbit extends AbstractProvider
     {
         return new FitbitUser($response);
     }
+
+    /**
+     * Returns the key used in the access token response to identify the resource owner.
+     *
+     * @return string|null Resource owner identifier key
+     */
+    protected function getAccessTokenResourceOwnerId() {
+        return 'user_id';
+    }
 }
