@@ -191,17 +191,9 @@ class Fitbit extends AbstractProvider
      * @return mixed
      */
     public function revoke(AccessToken $accessToken) {
-        $options['headers']['Authorization'] =
-            'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret);
+        $options = $this->getAccessTokenOptions([]);
         $uri = $this->appendQuery(Fitbit::BASE_FITBIT_API_URL . '/oauth2/revoke', $this->buildQueryString(['token' => $accessToken->getToken()]));
-
-        $factory = $this->getRequestFactory();
-
-        $request = $factory->getRequestWithOptions(
-            Fitbit::METHOD_POST,
-            $uri,
-            $options
-        );
+        $request = $this->getRequest(Fitbit::METHOD_POST, $uri, $options);
 
         return $this->getResponse($request);
     }
