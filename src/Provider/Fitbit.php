@@ -182,4 +182,19 @@ class Fitbit extends AbstractProvider
     protected function getAccessTokenResourceOwnerId() {
         return 'user_id';
     }
+
+    /**
+     * Revoke access for the given token.
+     *
+     * @param AccessToken $accessToken
+     *
+     * @return mixed
+     */
+    public function revoke(AccessToken $accessToken) {
+        $options = $this->getAccessTokenOptions([]);
+        $uri = $this->appendQuery(Fitbit::BASE_FITBIT_API_URL . '/oauth2/revoke', $this->buildQueryString(['token' => $accessToken->getToken()]));
+        $request = $this->getRequest(Fitbit::METHOD_POST, $uri, $options);
+
+        return $this->getResponse($request);
+    }
 }
