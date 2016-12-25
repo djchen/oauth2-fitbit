@@ -93,8 +93,8 @@ if (!isset($_GET['code'])) {
             // and setting Accept-Locale will return a translated response if available.
             // https://dev.fitbit.com/docs/basics/#localization
         );
-        // Make the authenticated API request and get the response body.
-        $responseBody = $provider->getResponse($request);
+        // Make the authenticated API request and get the parsed response.
+        $response = $provider->getResponse($request);
 
         // If you would like to get the response headers in addition to the response body, use:
         //$response = $provider->getHttpClient()->send($request);
