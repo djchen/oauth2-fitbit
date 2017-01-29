@@ -10,9 +10,9 @@ Developers can register applications to use the Fitbit API at <https://dev.fitbi
 
 The following versions of PHP are supported.
 
-* PHP 5.5
 * PHP 5.6
 * PHP 7.0
+* PHP 7.1
 * HHVM
 
 ## Installation
@@ -94,10 +94,10 @@ if (!isset($_GET['code'])) {
             // https://dev.fitbit.com/docs/basics/#localization
         );
         // Make the authenticated API request and get the parsed response.
-        $response = $provider->getResponse($request);
+        $response = $provider->getParsedResponse($request);
 
         // If you would like to get the response headers in addition to the response body, use:
-        //$response = $provider->getHttpClient()->send($request);
+        //$response = $provider->getResponse($request);
         //$headers = $response->getHeaders();
         //$body = $response->getBody();
 

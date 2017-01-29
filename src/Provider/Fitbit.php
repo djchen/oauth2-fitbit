@@ -202,14 +202,4 @@ class Fitbit extends AbstractProvider
 
         return $this->getResponse($request);
     }
-
-    /**
-     * Returns the rate limit headers for the last request.
-     *
-     * @return array
-     */
-    public function getRateLimitHeadersLastRequest()
-    {
-
-    }
 }
