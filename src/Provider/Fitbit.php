@@ -202,4 +202,9 @@ class Fitbit extends AbstractProvider
 
         return $this->getResponse($request);
     }
+
+    public function parseResponse(ResponseInterface $response)
+    {
+        return parent::parseResponse($response);
+    }
 }

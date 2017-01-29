@@ -99,7 +99,7 @@ if (!isset($_GET['code'])) {
         // If you would like to get the response headers in addition to the response body, use:
         //$response = $provider->getResponse($request);
         //$headers = $response->getHeaders();
-        //$body = $response->getBody();
+        //$parsedResponse = $provider->parseResponse($response);
 
     } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
 
