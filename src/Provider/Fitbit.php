@@ -207,4 +207,16 @@ class Fitbit extends AbstractProvider
     {
         return parent::parseResponse($response);
     }
+
+    /**
+     * Parse Fitbit API Rate Limit headers and return a FitbitRateLimit object.
+     *
+     * @param ResponseInterface $response
+     *
+     * @return FitbitRateLimit Fitbit API Rate Limit information
+     */
+    public function parseHeaders(ResponseInterface $response)
+    {
+        return new FitbitRateLimit($response);
+    }
 }
