@@ -215,7 +215,7 @@ class Fitbit extends AbstractProvider
      *
      * @return FitbitRateLimit Fitbit API Rate Limit information
      */
-    public function parseHeaders(ResponseInterface $response)
+    public function getFitbitRateLimit(ResponseInterface $response)
     {
         return new FitbitRateLimit($response);
     }
