@@ -41,7 +41,7 @@ class FitbitTest extends \PHPUnit_Framework_TestCase
 
     public function testScopes()
     {
-        $options = ['scope' => [uniqid(),uniqid()]];
+        $options = ['scope' => [uniqid()]];
         $url = $this->provider->getAuthorizationUrl($options);
         $this->assertContains(urlencode(implode(' ', $options['scope'])), $url);
     }
