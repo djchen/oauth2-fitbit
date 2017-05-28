@@ -17,11 +17,11 @@ class FitbitRateLimit
     public function __construct(ResponseInterface $response)
     {
         if ($response->getStatusCode() == 429) {
-            $this->retryAfter = $response->getHeader('Retry-After');
+            $this->retryAfter = $response->getHeader('Retry-After')[0];
         }
-        $this->limit = $response->getHeader('Fitbit-Rate-Limit-Limit');
-        $this->remaining = $response->getHeader('Fitbit-Rate-Limit-Remaining');
-        $this->reset = $response->getHeader('Fitbit-Rate-Limit-Reset');
+        $this->limit = $response->getHeader('Fitbit-Rate-Limit-Limit')[0];
+        $this->remaining = $response->getHeader('Fitbit-Rate-Limit-Remaining')[0];
+        $this->reset = $response->getHeader('Fitbit-Rate-Limit-Reset')[0];
     }
 
     /**
