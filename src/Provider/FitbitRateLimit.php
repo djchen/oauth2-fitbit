@@ -2,6 +2,8 @@
 
 namespace djchen\OAuth2\Client\Provider;
 
+use Psr\Http\Message\ResponseInterface;
+
 class FitbitRateLimit
 {
     private $retryAfter;
@@ -15,11 +17,11 @@ class FitbitRateLimit
     public function __construct(ResponseInterface $response)
     {
         if ($response->getStatusCode() == 429) {
-            $retryAfter = $response->getHeader('Retry-After');
+            $this->retryAfter = $response->getHeader('Retry-After')[0];
         }
-        $limit = $response->getHeader('Fitbit-Rate-Limit-Limit');
-        $remaining = $response->getHeader('Fitbit-Rate-Limit-Remaining');
-        $reset = $response->getHeader('Fitbit-Rate-Limit-Reset');
+        $this->limit = $response->getHeader('Fitbit-Rate-Limit-Limit')[0];
+        $this->remaining = $response->getHeader('Fitbit-Rate-Limit-Remaining')[0];
+        $this->reset = $response->getHeader('Fitbit-Rate-Limit-Reset')[0];
     }
 
     /**
@@ -30,7 +32,7 @@ class FitbitRateLimit
      */
     public function getRetryAfter()
     {
-        return $retryAfter;
+        return $this->retryAfter;
     }
 
     /**
@@ -38,7 +40,7 @@ class FitbitRateLimit
      */
     public function getLimit()
     {
-        return $limit;
+        return $this->limit;
     }
 
     /**
@@ -46,7 +48,7 @@ class FitbitRateLimit
      */
     public function getRemaining()
     {
-        return $remaining;
+        return $this->remaining;
     }
 
     /**
@@ -54,6 +56,6 @@ class FitbitRateLimit
      */
     public function getReset()
     {
-        return $reset;
+        return $this->reset;
     }
 }
