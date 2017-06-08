@@ -82,7 +82,7 @@ class Fitbit extends AbstractProvider
      */
     protected function getDefaultScopes()
     {
-        return ['activity', 'heartrate', 'location', 'profile', 'settings', 'sleep', 'social', 'weight'];
+        return ['activity', 'heartrate', 'location', 'profile', 'settings', 'sleep', 'social', 'weight', 'nutrition'];
     }
 
     /**
