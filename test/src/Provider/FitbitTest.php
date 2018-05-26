@@ -4,7 +4,7 @@ namespace djchen\OAuth2\Client\Test\Provider;
 
 use djchen\OAuth2\Client\Provider\Fitbit;
 use Eloquent\Phony\Phpunit\Phony;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\RequestInterface;
 
