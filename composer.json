@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.6.0",
-        "league/oauth2-client": "~2.2"
+        "league/oauth2-client": "2.3.*"
     },
     "require-dev": {
         "eloquent/phony": "^0.14.1",
