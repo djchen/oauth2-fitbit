@@ -41,6 +41,20 @@ class Fitbit extends AbstractProvider
     const HEADER_ACCEPT_LOCALE = 'Accept-Locale';
 
     /**
+     * Overridden to inject our options provider
+     * @param array $options
+     * @param array $collaborators
+     */
+    public function __construct(array $options = [], array $collaborators = [])
+    {
+        $collaborators['optionProvider'] = new FitbitOptionsProvider(
+            $options['clientId'],
+            $options['clientSecret']
+        );
+        parent::__construct($options, $collaborators);
+    }
+
+    /**
      * Get authorization url to begin OAuth flow.
      *
      * @return string
@@ -145,22 +159,6 @@ class Fitbit extends AbstractProvider
     }
 
     /**
-     * Builds request options used for requesting an access token.
-     *
-     * @param array $params
-     *
-     * @return array
-     */
-    protected function getAccessTokenOptions(array $params)
-    {
-        $options = parent::getAccessTokenOptions($params);
-        $options['headers']['Authorization'] =
-            'Basic '.base64_encode($this->clientId.':'.$this->clientSecret);
-
-        return $options;
-    }
-
-    /**
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
@@ -193,7 +191,9 @@ class Fitbit extends AbstractProvider
      */
     public function revoke(AccessToken $accessToken)
     {
-        $options = $this->getAccessTokenOptions([]);
+        $options = $this->getOptionProvider()
+            ->getAccessTokenOptions(self::METHOD_POST, []);
+
         $uri = $this->appendQuery(
             self::BASE_FITBIT_API_URL.'/oauth2/revoke',
             $this->buildQueryString(['token' => $accessToken->getToken()])
