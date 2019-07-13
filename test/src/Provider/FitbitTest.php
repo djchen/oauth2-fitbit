@@ -2,14 +2,18 @@
 
 namespace djchen\OAuth2\Client\Test\Provider;
 
-use djchen\OAuth2\Client\Provider\Fitbit;
-use Eloquent\Phony\Phpunit\Phony;
-use PHPUnit_Framework_TestCase as TestCase;
+use GuzzleHttp\Client;
+use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestInterface;
+use djchen\OAuth2\Client\Provider\Fitbit;
+use djchen\OAuth2\Client\Provider\FitbitOptionsProvider;
+use PHPUnit_Framework_TestCase as TestCase;
 
 class FitbitTest extends TestCase
 {
+    /**
+     * @var Fitbit
+     */
     protected $provider;
 
     protected function setUp()
@@ -63,32 +67,29 @@ class FitbitTest extends TestCase
         $this->assertEquals('/oauth2/token', $uri['path']);
     }
 
-    public function testGetFitbitRateLimit()
+    public function testOptionsProvider()
     {
-        $response = Phony::mock(ResponseInterface::class);
-        $response->getStatusCode->returns(429);
-        $response->getHeader->with('Retry-After')->returns(['1234']);
-        $response->getHeader->with('Fitbit-Rate-Limit-Limit')->returns(['150']);
-        $response->getHeader->with('Fitbit-Rate-Limit-Remaining')->returns(['100']);
-        $response->getHeader->with('Fitbit-Rate-Limit-Reset')->returns(['2345']);
-        $rateLimit = $this->provider->getFitbitRateLimit($response->get());
-        $this->assertEquals('1234', $rateLimit->getRetryAfter());
-        $this->assertEquals('150', $rateLimit->getLimit());
-        $this->assertEquals('100', $rateLimit->getRemaining());
-        $this->assertEquals('2345', $rateLimit->getReset());
+        $optionsProvider = $this->provider->getOptionProvider();
+        $this->assertInstanceOf(FitbitOptionsProvider::class, $optionsProvider);
     }
 
-        public function testGetFitbitRateLimitMissingHeaders()
+    /**
+     * Test revoke works for regression purposes
+     * Doesn't actually make a request, just to test no exceptions are thrown.
+     */
+    public function testRevoke()
     {
-        $response = Phony::mock(ResponseInterface::class);
-        $response->getStatusCode->returns(200);
-        $response->getHeader->with('Fitbit-Rate-Limit-Limit')->returns(null);
-        $response->getHeader->with('Fitbit-Rate-Limit-Remaining')->returns(null);
-        $response->getHeader->with('Fitbit-Rate-Limit-Reset')->returns(null);
-        $rateLimit = $this->provider->getFitbitRateLimit($response->get());
-        $this->assertNull($rateLimit->getRetryAfter());
-        $this->assertNull($rateLimit->getLimit());
-        $this->assertNull($rateLimit->getRemaining());
-        $this->assertNull($rateLimit->getReset());
+        $httpMock = \Mockery::mock(Client::class);
+        $responseMock = \Mockery::mock(ResponseInterface::class);
+        $httpMock->shouldReceive('send')->andReturn($responseMock);
+        $this->provider = new Fitbit([
+            'clientId' => 'mock_client_id',
+            'clientSecret' => 'mock_secret',
+            'redirectUri' => 'none',
+        ], [
+            'httpClient' => $httpMock,
+        ]);
+        $token = new AccessToken(['access_token' => 'atoken']);
+        $result = $this->provider->revoke($token);
     }
 }
