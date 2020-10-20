@@ -88,7 +88,7 @@ if (!isset($_GET['code'])) {
             Fitbit::METHOD_GET,
             Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
             $accessToken,
-            ['headers' => [Fitbit::HEADER_ACCEPT_LANG => 'en_US'], [Fitbit::HEADER_ACCEPT_LOCALE => 'en_US']]
+            ['headers' => [Fitbit::HEADER_ACCEPT_LANG => 'en_US', Fitbit::HEADER_ACCEPT_LOCALE => 'en_US']]
             // Fitbit uses the Accept-Language for setting the unit system used
             // and setting Accept-Locale will return a translated response if available.
             // https://dev.fitbit.com/docs/basics/#localization
